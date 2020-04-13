@@ -5,71 +5,44 @@ Created on Fri Apr 10 15:28:35 2020
 @author: wei.zheng
 """
 
+import pylab as pl
+import scipy.misc as sp
+img = sp.face()
+pl.imshow(img, cmap = pl.cm.gray)
+pl.colorbar()
 
-import cv2
+print("Hello python")
+
+import sys
+print('================Python import mode==========================')
+print ('命令行参数为:')
+for i in sys.argv:
+    print (i)
+print ('\n python 路径为',sys.path)
+
+import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow.compat.v1 as tf
-tf.compat.v1.disable_eager_execution()
+import math
+x = np.linspace(1, 5, 5, endpoint=True)
+y = np.power(x, 2)
 
-WINNAME = 'ocr'
-ix, iy = -1, -1
-clean = False  # 按下空格键，True-清除写字板里面的内容，False-对手写数字进行分类
+plt.plot(x, y, ls="-", lw="2", label="plot figure")
 
+plt.legend()
+plt.show()
 
-# mouse callback function
-def draw_line(event, x, y, flags, param):
-    global ix, iy
-    if event == cv2.EVENT_LBUTTONDOWN:
-        ix, iy = x, y
-    elif (event == cv2.EVENT_MOUSEMOVE) & (flags == cv2.EVENT_FLAG_LBUTTON):
-        cv2.line(img, (ix, iy), (x, y), 255, 5, cv2.LINE_AA)
-        ix, iy = x, y
-
-
-# Create a black image, a window and bind the function to window
-img = np.zeros((140, 140, 1), np.uint8)
-cv2.namedWindow(WINNAME)
-cv2.setMouseCallback(WINNAME, draw_line)
-
-# 构建图 #
-
-# 定义两个placeholder
-x = tf.placeholder(tf.float32, [None, 784])
-y = tf.placeholder(tf.float32, [None, 10])
-
-# 创建一个简单的神经网络，输入层784个神经元，输出层10个神经元
-W = tf.Variable(tf.zeros([784, 10]))
-b = tf.Variable(tf.zeros([10]))
-prediction = tf.nn.softmax(tf.matmul(x, W) + b)
-
-prediction = tf.argmax(prediction, 1)
-
-# 初始化变量
-init = tf.global_variables_initializer()
-
-saver = tf.train.Saver()
-
-with tf.Session() as sess:
-    sess.run(init)
-    saver.restore(sess, 'model/nn_mnist_model/my_net.ckpt')
-
-    while True:
-        cv2.imshow(WINNAME, img)
-        key = cv2.waitKey(20)
-
-        # 把图片resize成MNIST数据集的标准尺寸14*14
-        resized_img = cv2.resize(img, (28, 28), cv2.INTER_CUBIC)
-        # cv2.imshow('resized_img', resized_img)
-        # key = cv2.waitKey(1)
-
-        if key == 32:
-            if clean:
-                img = np.zeros((140, 140, 1), np.uint8)
-                cv2.imshow(WINNAME, img)
-            else:
-                print(sess.run(prediction, feed_dict={x: resized_img.reshape([1, 784])}))
-            clean = not clean
-        elif key == 27:
-            break
-
-cv2.destroyAllWindows()
+if True:
+    print("")
+else:
+    print("")
+    
+a = 10
+while a > 0:
+    print(a)
+    a = a-1
+    
+array= [1,2,4,5]
+for i in range(len(array)):
+    print(i, array[i])
+    
+    
