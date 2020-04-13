@@ -32,12 +32,19 @@ model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
 model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
 
-model.compile(optimizer='adam',  # 默认的较好的优化器
-              loss='sparse_categorical_crossentropy',  # 评估“错误”的损失函数，模型应该尽量降低损失
-              metrics=['accuracy'])  # 评价指标
+# =============================================================================
+# 配置训练过程
+# optimizer：训练过程的优化方法
+# loss： 训练过程中使用的损失函数
+# metrics： 训练过程中监测的指标
+# =============================================================================
+sgd = tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+model.compile(optimizer=sgd,
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
 # 训练模型
-model.fit(x_train, y_train, epochs=3)
+model.fit(x_train, y_train, epochs=5)
 
 # 评估模型对样本数据的输出结果
 val_loss, val_acc = model.evaluate(x_test, y_test)
