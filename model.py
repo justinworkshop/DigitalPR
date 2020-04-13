@@ -6,6 +6,8 @@ Created on Thu Apr  9 15:58:37 2020
 """
 
 import tensorflow.compat.v1 as tf
+import matplotlib.pyplot as plt
+import read_dataset
 
 print('tensortflow version:{0}'.format(tf.__version__))
 print('keras version:{0}'.format(tf.keras.__version__))
@@ -14,9 +16,10 @@ print('keras version:{0}'.format(tf.keras.__version__))
 dataPath = "mnist.mpz";
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data(dataPath)
 
-# 数据正规化
-x_train = tf.keras.utils.normalize(x_train, axis=1)
-x_test = tf.keras.utils.normalize(x_test, axis=1)
+
+#可视化样本，下面是输出了训练集中前count个样本
+read_dataset.showLabel(x_train, y_train, 0)
+read_dataset.showImage(x_train, 10)
 
 
 # =============================================================================
