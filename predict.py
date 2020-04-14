@@ -55,7 +55,7 @@ def main(argv=None):
     """
     Main function.
     """
-    path = "map/testmap0.jpg"
+    path = "img-DrawView.jpg"
     
     imvalue = imageprepare(path)
     
@@ -64,6 +64,7 @@ def main(argv=None):
     print("----------------------------")
     predint = predictint(imvalue)
     print ("result:",predint[0]) 
+    
     
 if __name__ == "__main__":
     main()
