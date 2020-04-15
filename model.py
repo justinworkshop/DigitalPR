@@ -24,10 +24,9 @@ read_dataset.showImage(x_train, 20)
 
 # 1.构建模型
 # 基础的前馈神经网络模型
-# 把图片展平，这里指定了input_shape 参数，否则模型无法通过 model.save() 保存
-# 全连接图层,，128个神经元，激活函数relu
-#
-# 输出层 ，10 个单元， 使用 Softmax 获得概率分布
+# Flatten:将2维数组转为1维数组
+# 添加两个神经连接层，128个节点
+# 添加10个节点的softmax层，该层会返回10个概率得分的数组
 model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))

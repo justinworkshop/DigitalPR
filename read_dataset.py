@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-debug = False
+debug = True
 
 
 def showLabel(res, resLable, index):
